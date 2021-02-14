@@ -114,7 +114,10 @@ namespace Calculator
         // Фокус всегда на "=", чтобы нажатие на Enter работало как "="
         private void button19_Leave(object sender, EventArgs e)
         {
-            ((Control)sender).Focus();
+            if (this.ActiveControl != comboBox1)
+            {
+                ((Control)sender).Focus();
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
