@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Calculator
 {
     public partial class MainForm : Form
     {
-        double num1, num2;
+        private double num1, num2;
 
-        string operation = "";
+        private string operation = "";
 
-        bool startNextNum = false;
+        private bool startNextNum = false;
 
         public MainForm()
         {
@@ -75,6 +68,53 @@ namespace Calculator
                 default:
                     return num1;
             }
+        }
+
+        // Обработка нажатий на клавиатуре
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 || 
+                e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9)
+            {
+                KeysConverter kc = new KeysConverter();
+                Button button = new Button();
+                string keyText = kc.ConvertToString(e.KeyCode);
+                button.Text = keyText.Substring(keyText.Length - 1, 1);
+                digit_Click(button, e);
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Decimal:
+                        digit_Click(button11, e);
+                        break;
+                    case Keys.Back:
+                        button16_Click(button16, e);
+                        break;
+                    case Keys.Delete:
+                        button13_Click(button13, e);
+                        break;
+                    case Keys.Add:
+                        operation_Click(button18, e);
+                        break;
+                    case Keys.Subtract:
+                        operation_Click(button17, e);
+                        break;
+                    case Keys.Multiply:
+                        operation_Click(button15, e);
+                        break;
+                    case Keys.Divide:
+                        operation_Click(button14, e);
+                        break;
+                }
+            }
+        }
+
+        // Фокус всегда на "=", чтобы нажатие на Enter работало как "="
+        private void button19_Leave(object sender, EventArgs e)
+        {
+            ((Control)sender).Focus();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
