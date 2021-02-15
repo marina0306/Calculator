@@ -120,6 +120,49 @@ namespace Calculator
             }
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedState = comboBox1.SelectedItem.ToString();
+            switch (selectedState) {
+                case "История":
+                    MainForm.ActiveForm.Hide();
+                    HistoryForm historyForm = new HistoryForm();
+                    historyForm.FormClosed += (object s, FormClosedEventArgs ev) => { this.Show(); }; 
+                    historyForm.ShowDialog();
+                    //Application.Run(new HistoryForm()); // Это для того чтобы новая форма открывалась в этой же форме. Но оно говорит, 
+                    //что приложение однопоточное, так что оно работает как работает. Скрывается активная форма. (Только мейновская, иначе закроется приложение), а затем вызывается новая форма. 
+                    break;
+                case "Сравнение чисел":
+                    MainForm.ActiveForm.Hide();
+                    CompareForm compareForm = new CompareForm();
+                    compareForm.FormClosed += (object s, FormClosedEventArgs ev) => { this.Show(); };
+                    compareForm.ShowDialog();
+                    break;
+                case "Решение квадратных уравнений":
+                    MainForm.ActiveForm.Hide();
+                    QuadrForm quadrForm = new QuadrForm();
+                    quadrForm.FormClosed += (object s, FormClosedEventArgs ev) => { this.Show(); };
+                    quadrForm.ShowDialog();
+                    break;
+                case "2СС/10CC":
+                    MainForm.ActiveForm.Hide();
+                    Conversion conversion = new Conversion();
+                    conversion.FormClosed += (object s, FormClosedEventArgs ev) => { this.Show(); };
+                    conversion.ShowDialog();
+                    break;
+
+
+            }
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            double d = Double.Parse(textBox1.Text);
+            d *= -1;
+            textBox1.Text = d.ToString();
+
+        }
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             string str = textBox1.Text;
