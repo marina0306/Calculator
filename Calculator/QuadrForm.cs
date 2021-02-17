@@ -83,24 +83,39 @@ namespace Calculator
                 c = double.Parse(textBox3.Text);
             }
             else c = 0;
-            D = b * b - 4 * a * c;
-            textBox4.Text = D.ToString();
-            if (D < 0)
+            if (a == 0 && b == 0)
             {
-                textBox7.Text = "Дискриминант с данными значениями отрицательный. Решения нет.";
+                textBox5.Text = "Любое число";
+                textBox7.Text = "Коэффициент при x равен 0, решением уравнения будет любое число";
             }
-            else if (D == 0)
+            else if (a == 0)
             {
-                textBox7.Text = "Т.к. D=0, уравнение имеет два решения, которые накладываются друг на друга";
-                x1 = (b * (-1)) / 2 * a;
+                x1 = -c / b;
                 textBox5.Text = x1.ToString();
+                textBox7.Text = "Уравнение является линейным, имеет одно решение";
             }
-            else {
-                textBox7.Text = "Уравнение имеет два решения";
-                x1 = (b * (-1) - Math.Sqrt(D))/( 2 * a);
-                textBox5.Text = x1.ToString();
-                x1 = (b * (-1) + Math.Sqrt(D))/(2 * a);
-                textBox6.Text = x1.ToString();
+            else
+            {
+                D = b * b - 4 * a * c;
+                textBox4.Text = D.ToString();
+                if (D < 0)
+                {
+                    textBox7.Text = "Дискриминант отрицательный. Решения нет.";
+                }
+                else if (D == 0)
+                {
+                    textBox7.Text = "Т.к. D=0, уравнение имеет 1 решение";
+                    x1 = (b * (-1)) / 2 * a;
+                    textBox5.Text = x1.ToString();
+                }
+                else
+                {
+                    textBox7.Text = "Уравнение имеет два решения";
+                    x1 = (b * (-1) - Math.Sqrt(D)) / (2 * a);
+                    textBox5.Text = x1.ToString();
+                    x2 = (b * (-1) + Math.Sqrt(D)) / (2 * a);
+                    textBox6.Text = x2.ToString();
+                }
             }
         }
     }
