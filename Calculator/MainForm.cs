@@ -5,7 +5,7 @@ namespace Calculator
 {
     public partial class MainForm : Form
     {
-        private double num1, num2;
+        private double num1, num2, memory = 0;
 
         private string operation = "";
 
@@ -161,6 +161,28 @@ namespace Calculator
             d *= -1;
             textBox1.Text = d.ToString();
 
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = memory.ToString();
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            double number = Double.Parse(textBox1.Text);
+            memory -= number;
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            memory = 0;
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            double number = Double.Parse(textBox1.Text);
+            memory += number;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
