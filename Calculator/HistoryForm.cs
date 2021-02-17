@@ -42,5 +42,19 @@ namespace Calculator
                     break;
             }
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HistoryForm_Load(object sender, EventArgs e)
+        {
+            Stack<String> list = HistoryList.getList();
+            foreach(String str in list)
+            {
+                textBox1.Text += str + Environment.NewLine;
+            }
+        }
     }
 }

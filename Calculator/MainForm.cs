@@ -7,7 +7,7 @@ namespace Calculator
     {
         private double num1, num2, memory = 0;
 
-        private string operation = "";
+        private string operation = "", history = "";
 
         private bool startNextNum = false;
 
@@ -46,8 +46,12 @@ namespace Calculator
         private void equals_Click(object sender, EventArgs e)
         {
             num2 = Double.Parse(textBox1.Text);
+            history = num1.ToString() + " " + operation + " " + num2.ToString();
             num1 = calculate();
+            history += " = " + num1.ToString();
+            HistoryList.setList(history);
             textBox1.Text = num1.ToString();
+            history = "";
             operation = "";
         }
 
