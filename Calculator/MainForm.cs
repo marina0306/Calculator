@@ -5,9 +5,9 @@ namespace Calculator
 {
     public partial class MainForm : Form
     {
-        private double num1, num2;
+        private double num1, num2, memory = 0;
 
-        private string operation = "";
+        private string operation = "", history = "";
 
         private bool startNextNum = false;
 
@@ -46,8 +46,12 @@ namespace Calculator
         private void equals_Click(object sender, EventArgs e)
         {
             num2 = Double.Parse(textBox1.Text);
+            history = num1.ToString() + " " + operation + " " + num2.ToString();
             num1 = calculate();
+            history += " = " + num1.ToString();
+            HistoryList.setList(history);
             textBox1.Text = num1.ToString();
+            history = "";
             operation = "";
         }
 
@@ -118,6 +122,71 @@ namespace Calculator
             {
                 ((Control)sender).Focus();
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedState = comboBox1.SelectedItem.ToString();
+            switch (selectedState) {
+                case "История":
+                    MainForm.ActiveForm.Hide();
+                    HistoryForm historyForm = new HistoryForm();
+                    historyForm.FormClosed += (object s, FormClosedEventArgs ev) => { this.Show(); }; 
+                    historyForm.ShowDialog();
+                    //Application.Run(new HistoryForm()); // Это для того чтобы новая форма открывалась в этой же форме. Но оно говорит, 
+                    //что приложение однопоточное, так что оно работает как работает. Скрывается активная форма. (Только мейновская, иначе закроется приложение), а затем вызывается новая форма. 
+                    break;
+                case "Сравнение чисел":
+                    MainForm.ActiveForm.Hide();
+                    CompareForm compareForm = new CompareForm();
+                    compareForm.FormClosed += (object s, FormClosedEventArgs ev) => { this.Show(); };
+                    compareForm.ShowDialog();
+                    break;
+                case "Решение квадратных уравнений":
+                    MainForm.ActiveForm.Hide();
+                    QuadrForm quadrForm = new QuadrForm();
+                    quadrForm.FormClosed += (object s, FormClosedEventArgs ev) => { this.Show(); };
+                    quadrForm.ShowDialog();
+                    break;
+                case "2СС/10CC":
+                    MainForm.ActiveForm.Hide();
+                    Conversion conversion = new Conversion();
+                    conversion.FormClosed += (object s, FormClosedEventArgs ev) => { this.Show(); };
+                    conversion.ShowDialog();
+                    break;
+
+
+            }
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            double d = Double.Parse(textBox1.Text);
+            d *= -1;
+            textBox1.Text = d.ToString();
+
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = memory.ToString();
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            double number = Double.Parse(textBox1.Text);
+            memory -= number;
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            memory = 0;
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            double number = Double.Parse(textBox1.Text);
+            memory += number;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
