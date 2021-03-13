@@ -41,7 +41,7 @@ namespace Calculator
             this.comboBox1.Items.AddRange(new object[] {
             "Решение квадратных уравнений",
             "Сравнение чисел",
-            "История ",
+            "История",
             "2СС/10CC",
             "Смена темы"});
             this.comboBox1.Location = new System.Drawing.Point(12, 12);
@@ -49,6 +49,7 @@ namespace Calculator
             this.comboBox1.Size = new System.Drawing.Size(416, 40);
             this.comboBox1.TabIndex = 26;
             this.comboBox1.Text = "Меню";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -62,23 +63,26 @@ namespace Calculator
             // 
             // textBox1
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(12, 116);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox1.Location = new System.Drawing.Point(12, 115);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(416, 702);
             this.textBox1.TabIndex = 28;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // HistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 830);
+            this.ClientSize = new System.Drawing.Size(440, 829);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Name = "HistoryForm";
             this.Text = "HistoryForm";
+            this.Load += new System.EventHandler(this.HistoryForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
